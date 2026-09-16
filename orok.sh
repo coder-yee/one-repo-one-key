@@ -29,16 +29,20 @@ say() {
 }
 
 usage() {
+  local command_name="${0##*/}"
+  if [[ "$command_name" == orok.sh ]]; then
+    command_name="$(cd -- "$(dirname -- "$0")" && pwd -P)/$command_name"
+  fi
   say 'OneRepo OneKey — dedicated SSH keys for GitHub repositories.\n\n' 'OneRepo OneKey · 一仓一钥 — 为 GitHub 仓库配置独立 SSH 密钥。\n\n'
   say 'Quick clone:\n' '快速克隆：\n'
-  printf '  %s clone git@github.com:owner/repo.git\n' "$0"
+  printf '  %s clone git@github.com:owner/repo.git\n' "$command_name"
   say '  # Shorthand alternative (choose one):\n' '  # 简写方式（二选一）：\n'
-  printf '  # %s clone owner/repo\n\n' "$0"
+  printf '  # %s clone owner/repo\n\n' "$command_name"
   say 'Usage:\n' '用法：\n'
-  printf '  %s init <key-directory>\n  %s key <owner/repo | git@github.com:owner/repo.git>\n  %s clone <owner/repo | git@github.com:owner/repo.git>\n' "$0" "$0" "$0"
+  printf '  %s init <key-directory>\n  %s key <owner/repo | git@github.com:owner/repo.git>\n  %s clone <owner/repo | git@github.com:owner/repo.git>\n' "$command_name" "$command_name" "$command_name"
   say 'Without saved configuration, keys default to ~/.ssh/one-repo-one-key/github.com/; init is optional.\n' '未保存配置时，密钥默认保存在 ~/.ssh/one-repo-one-key/github.com/；无需先执行 init。\n'
   say '\nExamples:\n' '\n示例：\n'
-  printf '  %s init ~/.ssh/one-repo-one-key/github.com\n  %s key git@github.com:owner/repo.git\n  %s clone git@github.com:owner/repo.git\n' "$0" "$0" "$0"
+  printf '  %s init ~/.ssh/one-repo-one-key/github.com\n  %s key git@github.com:owner/repo.git\n  %s clone git@github.com:owner/repo.git\n' "$command_name" "$command_name" "$command_name"
 }
 
 die() {
