@@ -33,16 +33,27 @@ usage() {
   if [[ "$command_name" == orok.sh ]]; then
     command_name="$(cd -- "$(dirname -- "$0")" && pwd -P)/$command_name"
   fi
-  say 'OneRepo OneKey — dedicated SSH keys for GitHub repositories.\n\n' 'OneRepo OneKey · 一仓一钥 — 为 GitHub 仓库配置独立 SSH 密钥。\n\n'
-  say 'Quick clone:\n' '快速克隆：\n'
-  printf '  %s clone git@github.com:owner/repo.git\n' "$command_name"
-  say '  # Shorthand alternative (choose one):\n' '  # 简写方式（二选一）：\n'
-  printf '  # %s clone owner/repo\n\n' "$command_name"
-  say 'Usage:\n' '用法：\n'
-  printf '  %s init <key-directory>\n  %s key <owner/repo | git@github.com:owner/repo.git>\n  %s clone <owner/repo | git@github.com:owner/repo.git>\n' "$command_name" "$command_name" "$command_name"
-  say 'Without saved configuration, keys default to ~/.ssh/one-repo-one-key/github.com/; init is optional.\n' '未保存配置时，密钥默认保存在 ~/.ssh/one-repo-one-key/github.com/；无需先执行 init。\n'
+  say 'Usage:  %s COMMAND [ARGUMENT]\n\n' '用法：  %s 命令 [参数]\n\n' "$command_name"
+  say 'OneRepo OneKey — dedicated SSH keys for GitHub repositories\n' 'OneRepo OneKey · 一仓一钥 — 为 GitHub 仓库配置独立 SSH 密钥\n'
+  say '\nCommands:\n' '\n命令：\n'
+  say '  clone       Clone a repository using its dedicated SSH key\n' '  clone       使用仓库专用 SSH 密钥克隆项目\n'
+  say "  key         Create or display a repository's dedicated SSH key\n" '  key         创建或显示仓库专用 SSH 密钥\n'
+  say '  init        Set the directory for storing SSH keys\n' '  init        设置 SSH 密钥存储目录\n'
+  say '  help        Show help information\n' '  help        显示帮助信息\n'
+  say '\nOptions:\n' '\n选项：\n'
+  say '  -h, --help  Show help information\n' '  -h, --help  显示帮助信息\n'
+  say '\nCommand Usage:\n' '\n命令用法：\n'
+  say '  %s clone <repository>\n' '  %s clone <仓库>\n' "$command_name"
+  say '  %s key <repository>\n' '  %s key <仓库>\n' "$command_name"
+  say '  %s init <key-directory>\n' '  %s init <密钥目录>\n' "$command_name"
+  say '\nArguments:\n' '\n参数：\n'
+  say '  repository     GitHub repository: owner/repo or git@github.com:owner/repo.git\n' '  仓库        GitHub 仓库：owner/repo 或 git@github.com:owner/repo.git\n'
+  say '  key-directory  Directory for storing SSH keys\n' '  密钥目录    用于存储 SSH 密钥的目录\n'
   say '\nExamples:\n' '\n示例：\n'
-  printf '  %s init ~/.ssh/one-repo-one-key/github.com\n  %s key git@github.com:owner/repo.git\n  %s clone git@github.com:owner/repo.git\n' "$command_name" "$command_name" "$command_name"
+  printf '  %s clone git@github.com:owner/repo.git\n  %s clone owner/repo\n  %s key owner/repo\n  %s init ~/.ssh/one-repo-one-key/github.com\n' "$command_name" "$command_name" "$command_name" "$command_name"
+  say '\nKeys default to ~/.ssh/one-repo-one-key/github.com unless configured.\n' '\n未配置时，密钥默认保存在 ~/.ssh/one-repo-one-key/github.com。\n'
+  say "Running '%s init' is optional.\n" "无需先执行 '%s init'。\n" "$command_name"
+  say '\nLearn more: https://github.com/coder-yee/one-repo-one-key\n' '\n了解更多：https://github.com/coder-yee/one-repo-one-key\n'
 }
 
 die() {
